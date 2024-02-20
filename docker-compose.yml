@@ -1,25 +1,25 @@
 services:
-  shared_frontend:
-    container_name: shared_frontend
-    image: thwntn/shared-frontend:${VERSION}
+  titanco_frontend:
+    container_name: titanco_frontend
+    image: thwntn/titanco-frontend:${VERSION}
     env_file:
       - .env
     build:
-      dockerfile: Ngix/Dockerfile
+      dockerfile: Build/Ngix/Dockerfile
       tags:
-        - thwntn/shared-frontend:${VERSION}
+        - thwntn/titanco-frontend:${VERSION}
     ports:
       - 8080:80
     restart: always
-  shared_backend:
-    container_name: shared_backend
-    image: thwntn/shared-backend:${VERSION}
+  titanco_backend:
+    container_name: titanco_backend
+    image: thwntn/titanco-backend:${VERSION}
     env_file:
       - .env
     build:
-      dockerfile: Backend/Dockerfile
+      dockerfile: Build/Backend/Dockerfile
       tags:
-        - thwntn/shared-backend:${VERSION}
+        - thwntn/titanco-backend:${VERSION}
     volumes:
       - ./.Cache:/root:rw
       - ./.File:/App/File:rw
@@ -35,7 +35,7 @@ services:
     env_file:
       - .env
     build:
-      dockerfile: SQLServer/Dockerfile
+      dockerfile: Build/SQLServer/Dockerfile
       tags:
         - thwntn/sql-server:0.0.1
     volumes:

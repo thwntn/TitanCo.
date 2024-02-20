@@ -12,25 +12,25 @@ fi
     echo "Warning: You need using same version in .env file"
 
 # Create file environment docker build
-echo "VERSION=${VERSION}" > Build/.env 
+echo "VERSION=${VERSION}" > .env 
 
 # Replace environtment source
-cp Backend/.env.Production Build/Backend/.env
-cp Frontend/.env.Production Build/Frontend/.env
+cp TitanCo.-Back-end/.env.Production TitanCo.-Back-end/.env
+cp TitanCo.-Front-end/.env.Production TitanCo.-Front-end/.env
 
 # Build front end
-cd Frontend
+cd TitanCo.-Front-end
 npm i
 npm run build
 cd ..
 
 # Copy to ngix
-cp -R Frontend/dist/* ngix/html
+cp -R TitanCo.-Front-end/dist/* Build/ngix/html
 
 # Build
 docker compose -f docker-compose.yml --env-file .env up -d --build --remove-orphans
 
 # Up to docker hub
-docker push thwntn/shared-frontend:${VERSION}
-docker push thwntn/shared-backend:${VERSION}
-docker push thwntn/sql-server:0.0.1
+# docker push thwntn/titanco-TitanCo.-Front-end:${VERSION}
+# docker push thwntn/titanco-backend:${VERSION}
+# docker push thwntn/sql-server:0.0.1
