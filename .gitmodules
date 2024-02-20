@@ -1,0 +1,6 @@
+[submodule "TitanCo.-Back-end"]
+	path = TitanCo.-Back-end
+	url = https://github.com/thwntn/TitanCo.-Back-end.git
+[submodule "TitanCo.-Front-end"]
+	path = TitanCo.-Front-end
+	url = https://github.com/thwntn/TitanCo.-Front-end.git
