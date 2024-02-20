@@ -1,0 +1,56 @@
+services:
+  shared_frontend:
+    container_name: shared_frontend
+    image: thwntn/shared-frontend:${VERSION}
+    env_file:
+      - .env
+    build:
+      dockerfile: Ngix/Dockerfile
+      tags:
+        - thwntn/shared-frontend:${VERSION}
+    ports:
+      - 8080:80
+    restart: always
+  shared_backend:
+    container_name: shared_backend
+    image: thwntn/shared-backend:${VERSION}
+    env_file:
+      - .env
+    build:
+      dockerfile: Backend/Dockerfile
+      tags:
+        - thwntn/shared-backend:${VERSION}
+    volumes:
+      - ./.Cache:/root:rw
+      - ./.File:/App/File:rw
+    ports:
+      - 6501:6501
+    networks:
+      titan:
+        ipv4_address: 172.22.0.3
+    restart: always
+  sql_server:
+    container_name: sql_server
+    image: thwntn/sql-server:0.0.1
+    env_file:
+      - .env
+    build:
+      dockerfile: SQLServer/Dockerfile
+      tags:
+        - thwntn/sql-server:0.0.1
+    volumes:
+      - ./.cache:/var/opt/mssql - /var/opt/mssql/data:rwx
+    ports:
+      - 1433:1433
+    networks:
+      titan:
+        ipv4_address: 172.22.0.2
+    restart: always
+
+networks:
+  titan:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.22.0.0/24
+          gateway: 172.22.0.1
